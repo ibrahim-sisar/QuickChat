@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بحث عن أصدقاء</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body >
+
+    <!-- العنوان -->
+    <div class="container py-5">
+        <h1 class="text-center mb-4">البحث عن أصدقاء</h1>
+
+        <!-- نموذج البحث -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form method="get" id="form">
+                    <div class="input-group">
+                        <form method="get">
+                        {% if isin %}
+                        <input type="text" autofocus class="form-control" value="{{isin}}" placeholder="ابحث عن اسم صديق..." name="search" id="search" required>
+                        {% else %}
+                        <input type="text" autofocus class="form-control"  placeholder="ابحث عن اسم صديق..." name="search" id="search" required>
+                        {% endif %}
+                        <button class="btn btn-primary" type="submit">بحث</button>
+                    </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                نتائج البحث
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% if isin %}
+                    {% for i in users%}
+                    <li class="list-group-item d-flex align-items-center">
+                        <img src="{{i.file.url}}" style="height: 60px;width: 60px;" class="rounded-circle me-3" alt="صورة الصديق" style="margin-left: 10px;">
+                        <strong style="margin-left: 10px;margin-right: 10px;">{{i.full_name}} @{{i.username}}</strong>
+                        <a href="{% url 'add' i.user.id%}"><button class="btn btn-success btn-sm ms-auto">إضافة صديق</button></a>
+                    </li>
+
+                    {% endfor %}
+                    {% else %}
+
+                    <p class="text-muted text-center mt-3">لا توجد نتائج للعرض.</p>
+                     {% endif %}
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

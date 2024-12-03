@@ -1,0 +1,67 @@
+{% extends  "main.html" %}
+{% block title %}hello{% endblock %}
+
+{% block body %}
+<div class="chat-header p-3 d-flex align-items-center">
+    <img src="{{users.file.url}}" style="height: 40px; width: 40px;"  class="rounded-circle me-3">
+    <a href="{% url 'friend_profile' users.id %}" style="color: white;text-decoration: none;"><strong>{{users.full_name}}</strong></a>
+</div>
+<div class="chat-body p-3" style="max-height: 70vh; overflow-y: auto;">
+    {% for i in msg %}
+    <div class="mb-10">
+        {% if i.receiver == request.user %}
+            {% if i.seen %}
+            <div class="text-start bg-white p-2 rounded shadow-sm d-inline-block" style="float: left; clear: both; margin-right: 10px; margin-bottom: 15px;">
+                {{ i.body }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                    <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0"/>
+                    <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708"/>
+                  </svg>
+            </div>
+            {% else %}
+                <div class="text-start bg-white p-2 rounded shadow-sm d-inline-block" style="float: left; clear: both; margin-right: 10px; margin-bottom: 15px;">
+                    {{ i.body }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2 ms-2" viewBox="0 0 16 16" style="margin-top: 3px;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                    </svg>
+                </div>
+            {% endif %}
+        {% else %}
+            {% if i.seen %}
+                <div class="text-end bg-primary text-white p-2 rounded shadow-sm d-inline-block" style="float: right; clear: both; margin-left: 10px; margin-bottom: 15px;">
+                    {{ i.body }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2-all" viewBox="0 0 16 16">
+                        <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0zm-4.208 7-.896-.897.707-.707.543.543 6.646-6.647a.5.5 0 0 1 .708.708l-7 7a.5.5 0 0 1-.708 0"/>
+                        <path d="m5.354 7.146.896.897-.707.707-.897-.896a.5.5 0 1 1 .708-.708"/>
+                    </svg>
+                </div>
+            {% else %}
+                <div class="text-end bg-primary text-white p-2 rounded shadow-sm d-inline-block" style="float: right; clear: both; margin-left: 10px; margin-bottom: 15px;">
+                    {{ i.body }}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2 ms-2" viewBox="0 0 16 16" style="margin-top: 3px;">
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+                    </svg>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    
+</div>
+
+
+
+
+<div class="chat-footer p-3 d-flex align-items-center" style="position: fixed; bottom: 0; left: 1; right: 0; background-color:rgba(0, 0, 0, 0); border-top: 1px solid #ddd; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
+    <form method="post" class="w-100 d-flex">
+        {% csrf_token %}
+        <input type="text" class="form-control me-2" placeholder="اكتب رسالتك..." name="content" required>
+        <button class="btn btn-primary" type="submit">إرسال</button>
+    </form>
+</div>
+
+
+</div>
+</div>
+{% endblock %}

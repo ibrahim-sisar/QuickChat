@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickChat| {% block title %}{% endblock %}</title>
+    <!-- رابط Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef; /* لون خلفية رمادي فاتح */
+        }
+        .sidebar {
+            height: 100vh;
+            overflow-y: auto;
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+        }
+        .chat-header, .sidebar-header {
+            background-color: #0088cc;
+            color: #fff;
+        }
+        .chat-header {
+            border-bottom: 1px solid #ddd;
+        }
+        .chat-body {
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            background-color: #e9ecef;
+        }
+        .chat-footer {
+            background-color: #ffffff;
+            border-top: 1px solid #ddd;
+            width: 1010px;
+        }
+        .contact-item:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+        .contact-item img {
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- الشريط الجانبي (جهات الاتصال) -->
+            <div class="col-md-4 col-lg-3 p-0 sidebar">
+                <div class="sidebar-header p-3 d-flex justify-content-between align-items-center">
+                    <!-- زر القائمة الجانبية -->
+                    <button style="padding: 0px;" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
+                    </button>
+                
+                    <!-- offcanvas -->
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+                        <div class="offcanvas-header border-bottom">
+                            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+                                <img src="{{user.file.url}}" style="width: 50px;height: 50px;" class="rounded-circle me-3">
+                                {{user.full_name}}
+                            </h5>
+                        </div>
+                        <div class="offcanvas-body">
+                            <!-- رابط البحث عن صديق -->
+                            <div class="mb-3">
+                                <a href="{% url 'search_friends' %}" class="btn btn-outline-primary w-100">بحث عن صديق</a>
+                            </div>
+                            <div class="mb-3">
+                                <a href="{% url 'profile' request.user.id %}" class="btn btn-outline-secondary w-100">الملف الشخصي</a>
+                            </div>
+                            <!-- رابط تسجيل الخروج -->
+                            <a href="{% url 'logout' %}" class="text-danger d-block">تسجيل الخروج</a>
+                        </div>
+                    </div>
+                
+                    <strong class="ms-3">QuickChat</strong>
+                </div>
+                
+<ul class="list-group list-group-flush">
+    {% for friend_data in friends_data %}
+    <li class="list-group-item contact-item d-flex align-items-center position-relative">
+            <a href="{% url 'single_chat' friend_data.friend.id %}" style="text-decoration: none;">
+            {% if friend_data.user.file %}
+            <img src="{{friend_data.user.file.url}}" class="rounded-circle me-3">
+            {% endif %}
+            <div class="flex-grow-1 d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>{{ friend_data.user.full_name }}</strong>
+                    <p class="mb-1 text-muted">{{ friend_data.last_msg }}</p>
+                </div>
+                
+            </a>
+                <div class="dropdown">
+                    <button class="btn btn-link text-dark p-0 " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-three-dots-vertical"></i> <!-- أيقونة ثلاث نقاط رأسية -->
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu">
+                        <li>
+                            <a class="dropdown-item text-danger" href="{% url 'delete_friend' friend_data.friend.id %}">حذف الصديق</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {% if friend_data.count > 0 %}
+            <span class="badge bg-primary rounded-pill">{{ friend_data.count }}</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+                
+                
+                
+                
+                
+            </div>
+            <div class="col-md-8 col-lg-9 p-0">
+            {% block body %}
+            {% endblock %}
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+        </html>
+        

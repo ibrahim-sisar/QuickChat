@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <!-- Edit Profile Section -->
+     {% if stats == 'edit' %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>Edit Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'edit' request.user.id %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Profile Picture -->
+                            <div class="mb-4 text-center">
+                                <img src="{{profile.file.url}}" alt="Profile Picture" class="rounded-circle img-thumbnail mb-3" style="width: 250px;height: 250px;">
+                                <div>
+                                    <label for="profile-picture" class="form-label">Update Profile Picture</label>
+                                    <input type="file" class="form-control" id="profile-picture"  name="profile_picture">
+                                </div>
+                            </div>
+                            <!-- Full Name -->
+                            <div class="mb-3">
+                                <label for="full-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="full-name" name="full_name" value="{{profile.full_name}}" required>
+                            </div>
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{profile.username}}" required>
+                            </div>
+                            <!-- Phone -->
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="{{profile.phone}}">
+                            </div>
+                            <!-- Address -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" name="address" rows="3">{{profile.address}}</textarea>
+                            </div>
+                            <!-- Bio -->
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">Bio</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="3">{{profile.bio}}</textarea>
+                            </div>
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                                <a href="{% url 'profile' request.user.id %}" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>create Profile</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'create_profile' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- Profile Picture -->
+                            <div class="mb-4 text-center">
+                                <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle img-thumbnail mb-3">
+                                <div>
+                                    <label for="profile-picture" class="form-label">Update Profile Picture</label>
+                                    <input type="file" class="form-control" id="profile-picture" name="profile_picture">
+                                </div>
+                            </div>
+                            <!-- Full Name -->
+                            <div class="mb-3">
+                                <label for="full-name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="full-name" name="full_name" required>
+                            </div>
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{profile.username}}" required>
+                            </div>
+                            <!-- Phone -->
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone">
+                            </div>
+                            <!-- Address -->
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address</label>
+                                <textarea class="form-control" id="address" name="address" rows="3"></textarea>
+                            </div>
+                            <!-- Bio -->
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">Bio</label>
+                                <textarea class="form-control" id="bio" name="bio" rows="3"></textarea>
+                            </div>
+                            <!-- Buttons -->
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
