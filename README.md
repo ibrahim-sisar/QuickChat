@@ -1,5 +1,5 @@
 # QuickChat: A Simple Social Media Platform
-#### Video Demo: <https://www.youtube.com/watch?v=gQidJSOYlCc>
+#### Video Demo: [Watch on YouTube](https://www.youtube.com/watch?v=gQidJSOYlCc)
 #### Description
 QuickChat is a simple and intuitive social media platform designed for casual users, focusing on ease of use and performance. The platform aims to provide a user-friendly experience by simplifying the complexities that are often found in other social media platforms. Whether you're a tech-savvy user or someone who prefers simplicity, QuickChat has a straightforward interface to accommodate all ages.
 
