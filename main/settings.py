@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cloudinary',
-    'cloudinary_storage',
+    'chat',  # تأكد من أن التطبيق "chat" مضاف هنا
+    'users',  # إذا كان هناك تطبيق "users"، تأكد من إضافته أيضًا
 ]
 
 MIDDLEWARE = [
