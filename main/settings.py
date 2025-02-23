@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-hil(rfkuzuxek8-muh40*zm3h8%xws8npdqqg*vz$g-7*3*d&g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "quickchat-production-decc.up.railway.app",
+    "127.0.0.1",
+    "localhost"
+]
+
 
 LOGIN_URL = '/users/login/'
 # Application definition
