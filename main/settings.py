@@ -43,10 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cloudinary',
-    'cloudinary_storage',
-    'chat',
-    'users'
+    'whitenoise.runserver_nostatic',  # أضف هذا لضمان تحميل الملفات الثابتة
+    'chat.apps.ChatConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -128,11 +127,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'quickchat',
-    'API_KEY': '567667476199165',
-    'API_SECRET': 'eQameW1TvV3pBrooWAuYvh3H9d8',
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
