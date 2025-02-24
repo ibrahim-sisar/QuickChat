@@ -139,7 +139,7 @@ def edit_profile(request, pk):
             return redirect('profile', pk=pk)
         else:
             messages.error(request, "All fields are required.")
-            return render(request, 'edit_profile.html', {'profile': profile})
+            return render(request, 'Edit_profile.html', {'profile': profile})
     data = {
         'profile': profile,
         'stats': 'edit'
