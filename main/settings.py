@@ -12,15 +12,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hil(rfkuzuxek8-muh40*zm3h8%xws8npdqqg*vz$g-7*3*d&g'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False  # تم تغييره إلى False لبيئة الإنتاج
+DEBUG = False 
 
 ALLOWED_HOSTS = [
     "quickchat-production-decc.up.railway.app",
@@ -124,6 +126,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # إعداد Whitenoise للتعامل مع الملفات الثابتة في الإنتاج
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dea3fv4kh',
+    'API_KEY': '567667476199165',
+    'API_SECRET': 'eQameW1TvV3pBrooWAuYvh3H9d8',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -11,11 +11,11 @@ def index(request):
     if request.user.is_authenticated:
         try:
             Profile.objects.get(user=request.user)
-        except:
+            return redirect('profile', pk=request.user.id)
+        except Profile.DoesNotExist:
             return redirect("create_profile")
-        return redirect('index')
-    else:
-        return render(request,'welcome.html')
+    return render(request, 'welcome.html')
+
 def user_login(request):
     if request.user.is_authenticated:
         return redirect('index')
@@ -43,7 +43,7 @@ def user_logout(request):
     return redirect('login')
 
     
-def sighup_user(request):
+def signup_user(request):
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == 'POST':
