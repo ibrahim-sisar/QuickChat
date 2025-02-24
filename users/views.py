@@ -34,7 +34,7 @@ def user_login(request):
 
         else:
             messages.error(request, "Invalid username or password.")
-            return render(request, 'login.html')
+            return render(request, 'Login.html')
         
     return render(request, 'Login.html')
 @login_required
@@ -125,7 +125,7 @@ def edit_profile(request, pk):
         if full_name and username:
             if username_in:
                 messages.error(request, "Username already exists.")
-                return render(request, 'Edit_profile.html', {'profile': profile})
+                return render(request, 'Edit_Profile.html', {'profile': profile})
             if file:
                 profile.file = file 
             profile.full_name = full_name
@@ -139,12 +139,12 @@ def edit_profile(request, pk):
             return redirect('profile', pk=pk)
         else:
             messages.error(request, "All fields are required.")
-            return render(request, 'Edit_profile.html', {'profile': profile})
+            return render(request, 'Edit_Profile.html', {'profile': profile})
     data = {
         'profile': profile,
         'stats': 'edit'
     }
-    return render(request, 'Edit_profile.html', data)
+    return render(request, 'Edit_Profile.html', data)
 
 @login_required
 def create_profile(request):
@@ -160,7 +160,7 @@ def create_profile(request):
         if username:
             if username_in and full_name:
                 messages.error(request, "Username already exists.")
-                return render(request,'Edit_profile.html')
+                return render(request,'Edit_Profile.html')
             user = User.objects.get(id = request.user.id)
             user.username = username
             user.save()
@@ -186,7 +186,7 @@ def create_profile(request):
         'profile':profile,
         'stats':'create'
     }
-    return render(request,'Edit_profile.html',data)
+    return render(request,'Edit_Profile.html',data)
 
 @login_required
 def delete_account(request,pk):
