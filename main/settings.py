@@ -26,13 +26,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "quickchat-production-decc.up.railway.app",
+    "chat-quickchat.up.railway.app",
     "127.0.0.1",
     "localhost"
 ]
 
 # CSRF Configuration (Fix for CSRF Verification Failed)
 CSRF_TRUSTED_ORIGINS = [
-    "https://quickchat-production-decc.up.railway.app"
+    "https://quickchat-production-decc.up.railway.app",
+    "chat-quickchat.up.railway.app"
 ]
 
 LOGIN_URL = '/users/login/'
