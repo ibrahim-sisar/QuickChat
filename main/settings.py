@@ -33,7 +33,7 @@ ALLOWED_HOSTS = [
 
 # CSRF Configuration (Fix for CSRF Verification Failed)
 CSRF_TRUSTED_ORIGINS = [
-    "chat-quickchat.up.railway.app",
+    "https://chat-quickchat.up.railway.app",
 ]
 
 LOGIN_URL = '/users/login/'
